@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Process</title>
+    <style>
+      img {
+    height: 150px;
+    width: 160px;
+    box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.7); /* Light glow effect */
+    border-radius: 10px; /* Optional: Rounded corners for the image */
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+img:hover {
+    box-shadow: 0px 0px 30px 10px rgba(255, 255, 255, 1); /* Brighter glow on hover */
+}
+
+       div {
+           background-color:rgb(34, 34, 109);
+           flex-direction: column;
+           color: aliceblue;
+           display: flex;
+           justify-content: center;
+           font-family: 'Times New Roman', Times, serif;
+           font-size: 40px;
+           align-items: center;
+           margin: 10px 0;
+           padding: 20px;
+           
+       }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <p id="text1"></p>
+    </div>
+    <div id="div2"><p id="text2"></p></div>
+    <div id="div3"><p id="text3"></p></div>
+    <div id="div4"><p id="text4"></p></div>
+    <div id="div5"><p id="text5"></p></div>
+
+    <script>
+        // Select all divs
+        let div1 = document.getElementById("div1");
+        let div2 = document.getElementById("div2");
+        let div3 = document.getElementById("div3");
+        let div4 = document.getElementById("div4");
+        let div5 = document.getElementById("div5");
+
+        // Function to add an image dynamically to a div
+        function addImage(div, src, alt) {
+            let img = document.createElement("img");
+            img.src = src;
+            img.alt = alt;
+            div.appendChild(img);
+        }
+
+        // Function to hide content in a div
+        function hideDivContent(div) {
+            console.log(`Hiding content in: ${div.id}`);
+            while (div.firstChild) {
+                div.removeChild(div.firstChild);
+            }
+        }
+
+        function order(callback) {
+            let a = document.getElementById("text1");
+            setTimeout(() => {
+                console.log("Order step");
+                a.innerHTML = "Place Order";
+                addImage(div1, "place.png", "Order Placed");
+                callback();
+            }, 1000);
+        }
+
+        function pre(callback) {
+            let b = document.getElementById("text2");
+            setTimeout(() => {
+                console.log("Preparing step");
+                hideDivContent(div1); // Ensure previous content is cleared
+                b.innerHTML = "Preparing";
+                addImage(div2, "pre.gif", "Preparing");
+                callback();
+            }, 1400);
+        }
+
+        function bake(callback) {
+            let b = document.getElementById("text3");
+            setTimeout(() => {
+                console.log("Baking step");
+                hideDivContent(div2); // Ensure previous content is cleared
+                b.innerHTML = "Baking";
+                addImage(div3, "bake.gif", "Baking");
+                callback();
+            }, 2100);
+        }
+
+        function pack(callback) {
+            let b = document.getElementById("text4");
+            setTimeout(() => {
+                console.log("Packing step");
+                hideDivContent(div3); // Ensure previous content is cleared
+                b.innerHTML = "Packing";
+                addImage(div4, "pack.gif", "Packing");
+                callback();
+            }, 2800);
+        }
+
+        function delivery() {
+            let b = document.getElementById("text5");
+            setTimeout(() => {
+                console.log("Delivery step");
+                hideDivContent(div4); // Ensure previous content is cleared
+                b.innerHTML = "Delivery";
+                addImage(div5, "delivery.gif", "Delivery");
+            }, 3000);
+        }
+
+        // Execute the order process
+        order(() => {
+            pre(() => {
+                bake(() => {
+                    pack(() => {
+                        delivery();
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
